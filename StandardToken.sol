@@ -19,7 +19,7 @@ abstract contract ITRC20 is TRC20Basic {
  * @dev Enhanced Basic Token, with "allowance" possibility.
  */
 
-contract StandardToken is ITRC20, BasicToken {
+abstract contract StandardToken is ITRC20, BasicToken {
     using SafeMath for uint256;
     mapping(address => mapping(address => uint256)) private _allowed;
 

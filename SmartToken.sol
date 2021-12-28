@@ -26,7 +26,7 @@ abstract contract TRC677Receiver {
  * @dev Enhanced Standard Token, with "transfer and call" possibility.
  */
 
-contract SmartToken is ITRC677, StandardToken {
+abstract contract SmartToken is ITRC677, StandardToken {
     
     /**
      * @dev transfer token to a contract address with additional data if the recipient is a contract.

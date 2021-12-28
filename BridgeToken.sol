@@ -8,7 +8,7 @@ contract BridgeToken is SmartToken {
     string private _symbol;
     uint8 private _decimals;
     
-    constructor() public {
+    constructor()  {
         _name = "Bridge Oracle";
         _symbol = "BRG";
         _decimals = 18;

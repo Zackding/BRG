@@ -3,11 +3,11 @@ pragma solidity 0.8.8;
 import "./BasicToken.sol";
 
 /**
- * @title ITRC20 interface
+ * @title IBEP20 interface
  * @dev see https://github.com/ethereum/EIPs/issues/20
  */
 
-abstract contract ITRC20 is TRC20Basic {
+abstract contract IBEP20 is BEP20Basic {
     function allowance(address owner, address spender) virtual public view returns (uint256);
     function approve(address spender, uint256 value) virtual public returns (bool);
     function transferFrom(address from, address to, uint256 value) virtual public returns (bool);
@@ -19,7 +19,7 @@ abstract contract ITRC20 is TRC20Basic {
  * @dev Enhanced Basic Token, with "allowance" possibility.
  */
 
-abstract contract StandardToken is ITRC20, BasicToken {
+abstract contract StandardToken is IBEP20, BasicToken {
     using SafeMath for uint256;
     mapping(address => mapping(address => uint256)) private _allowed;
 

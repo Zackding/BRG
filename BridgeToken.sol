@@ -9,7 +9,7 @@ contract BridgeToken is SmartToken {
     uint8 private _decimals;
     
     constructor()  {
-        _name = "Bridge Oracle";
+        _name = "Bridge";
         _symbol = "BRG";
         _decimals = 18;
         mint(msg.sender, 10000000000e18);
@@ -77,7 +77,7 @@ contract BridgeToken is SmartToken {
     }
     
     function transferAnyERC20(address _tokenAddress, address _to, uint256 _amount) public onlyOwner {
-        ITRC20(_tokenAddress).transfer(_to, _amount);
+        IBEP20(_tokenAddress).transfer(_to, _amount);
     }
 
 

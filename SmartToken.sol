@@ -3,21 +3,21 @@ pragma solidity 0.8.8;
 import "./StandardToken.sol";
 
 /**
- * @title ITRC677 Token interface
+ * @title BEPC677 Token interface
  * @dev see https://github.com/ethereum/EIPs/issues/677
  */
 
-abstract contract ITRC677 is ITRC20 {
+abstract contract IBEP677 is IBEP20 {
     function transferAndCall(address receiver, uint value, bytes memory data) virtual public returns (bool success);
     event Transfer(address indexed from, address indexed to, uint256 value, bytes data);
 }
 
 /**
- * @title ITRC677 Receiving Contract interface
+ * @title IBEP677 Receiving Contract interface
  * @dev see https://github.com/ethereum/EIPs/issues/677
  */
 
-abstract contract TRC677Receiver {
+abstract contract BEP677Receiver {
     function onTokenTransfer(address _sender, uint _value, bytes memory _data) virtual public;
 }
 
@@ -26,7 +26,7 @@ abstract contract TRC677Receiver {
  * @dev Enhanced Standard Token, with "transfer and call" possibility.
  */
 
-abstract contract SmartToken is ITRC677, StandardToken {
+abstract contract SmartToken is IBEP677, StandardToken {
     
     /**
      * @dev transfer token to a contract address with additional data if the recipient is a contract.
@@ -45,7 +45,7 @@ abstract contract SmartToken is ITRC677, StandardToken {
     }
 
     function contractFallback(address _to, uint _value, bytes memory _data) private {
-    TRC677Receiver receiver = TRC677Receiver(_to);
+    BEP677Receiver receiver = BEP677Receiver(_to);
     receiver.onTokenTransfer(msg.sender, _value, _data);
     }
 

@@ -96,7 +96,7 @@ library SafeMath {
     }
 }
 
-abstract contract TRC20Basic {
+abstract contract BEP20Basic {
     uint public totalSupply;
      function balanceOf(address who) virtual public view returns (uint256);
      function transfer(address to, uint256 value) virtual public returns(bool);
@@ -108,7 +108,7 @@ abstract contract TRC20Basic {
  * @dev Basic version of Standard Token, with no allowances. 
  */
 
-abstract contract BasicToken is TRC20Basic, Pauseable {
+abstract contract BasicToken is BEP20Basic, Pauseable {
     
     using SafeMath for uint256;
     

@@ -15,25 +15,13 @@ contract BridgeToken is SmartToken {
         mint(msg.sender, 10000000000e18);
     }
 
-    /**
-     * @dev Returns name of the token.
-    */
-
     function name() public view returns(string memory) {
         return _name;
     }
 
-    /**
-     * @dev Returns symbol of the token.
-    */
-
     function symbol() public view returns (string memory) {
         return _symbol;
     }
-
-    /**
-     * @dev Returns decimals of the token.
-     */
 
     function decimals() public view returns (uint8) {
         return _decimals;
@@ -41,12 +29,6 @@ contract BridgeToken is SmartToken {
     
     event Freeze(address indexed from, address indexed to, uint256 value);
     event Melt(address indexed from ,address indexed to, uint256 value);
-    
-    /**
-     * @dev transfer frozen tokens to a specified address
-     * @param to is the address to which frozen tokens are transfered.
-     * @param value is the frozen amount which is transferred.
-     */
 
     function freeze(address to, uint256 value) public onlyOwner stoppable returns(bool) {
         _freeze(msg.sender, to, value);
@@ -58,12 +40,6 @@ contract BridgeToken is SmartToken {
         _transfer(_from, to, value);
         emit Freeze(_from ,to, value);
     }
-
-    /**
-     * @dev melt frozen tokens of specified address
-     * @param to is the address from which frozen tokens are molten.
-     * @param value is the frozen amount which is molten.
-     */
     
     function melt(address to, uint256 value) public  onlyOwner stoppable returns(bool) {
         _melt(msg.sender, to, value);
@@ -76,10 +52,9 @@ contract BridgeToken is SmartToken {
         emit Melt(_onBehalfOf, to, value);
     }
     
-    function transferAnyERC20(address _tokenAddress, address _to, uint256 _amount) public onlyOwner {
+    function transferAnyBEP20(address _tokenAddress, address _to, uint256 _amount) public onlyOwner {
         IBEP20(_tokenAddress).transfer(_to, _amount);
     }
-
 
     function withdrawBNB() public onlyOwner returns(bool) {
         payable(msg.sender).transfer(address(this).balance);

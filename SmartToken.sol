@@ -2,39 +2,18 @@ pragma solidity 0.8.8;
 
 import "./StandardToken.sol";
 
-/**
- * @title BEPC677 Token interface
- * @dev see https://github.com/ethereum/EIPs/issues/677
- */
 
 abstract contract IBEP677 is IBEP20 {
-    function transferAndCall(address receiver, uint value, bytes memory data) virtual public returns (bool success);
+    function transferAndCall(address receiver, uint value, bytes memory data) public virtual returns (bool success);
     event Transfer(address indexed from, address indexed to, uint256 value, bytes data);
 }
 
-/**
- * @title IBEP677 Receiving Contract interface
- * @dev see https://github.com/ethereum/EIPs/issues/677
- */
-
 abstract contract BEP677Receiver {
-    function onTokenTransfer(address _sender, uint _value, bytes memory _data) virtual public;
+    function onTokenTransfer(address _sender, uint _value, bytes memory _data) public virtual;
 }
-
-/**
- * @title Smart Token
- * @dev Enhanced Standard Token, with "transfer and call" possibility.
- */
 
 abstract contract SmartToken is IBEP677, StandardToken {
     
-    /**
-     * @dev transfer token to a contract address with additional data if the recipient is a contract.
-     * @param _to address to transfer to.
-     * @param _value amount to be transferred.
-     * @param _data extra data to be passed to the receiving contract.
-     */
-
     function transferAndCall(address _to, uint256 _value, bytes memory _data) public override validRecipient(_to) returns(bool success) {
         _transfer(msg.sender, _to, _value);
         emit Transfer(msg.sender, _to, _value, _data);
@@ -45,8 +24,8 @@ abstract contract SmartToken is IBEP677, StandardToken {
     }
 
     function contractFallback(address _to, uint _value, bytes memory _data) private {
-    BEP677Receiver receiver = BEP677Receiver(_to);
-    receiver.onTokenTransfer(msg.sender, _value, _data);
+        BEP677Receiver receiver = BEP677Receiver(_to);
+        receiver.onTokenTransfer(msg.sender, _value, _data);
     }
 
     function isContract(address _addr) private view returns (bool hasCode) {
